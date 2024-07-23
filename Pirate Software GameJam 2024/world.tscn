@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bo2e5p1rs7r3v"]
+
+[ext_resource type="PackedScene" uid="uid://bp2wck403dsk7" path="res://player.tscn" id="1_eqliw"]
+[ext_resource type="Texture2D" uid="uid://cjeijn024vtvp" path="res://assets/ground 1.png" id="2_u6njg"]
+[ext_resource type="PackedScene" uid="uid://b3ifp7e1ytsmo" path="res://enemy.tscn" id="3_6pdff"]
+
+[node name="World" type="Node2D"]
+
+[node name="Floor" type="Sprite2D" parent="."]
+texture_filter = 1
+texture_repeat = 2
+texture = ExtResource("2_u6njg")
+region_enabled = true
+region_rect = Rect2(-806, -415, 1883, 954)
+
+[node name="Player" parent="." instance=ExtResource("1_eqliw")]
+position = Vector2(64, 112)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(2, 1)
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Enemies" parent="." instance=ExtResource("3_6pdff")]
