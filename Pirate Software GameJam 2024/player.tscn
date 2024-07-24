@@ -1,30 +1,37 @@
-[gd_scene load_steps=9 format=3 uid="uid://bp2wck403dsk7"]
+[gd_scene load_steps=10 format=3 uid="uid://bp2wck403dsk7"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_jrjxc"]
-[ext_resource type="Texture2D" uid="uid://bqkr3wxltw7mc" path="res://assets/playersprite1.png" id="3_w730s"]
-[ext_resource type="Texture2D" uid="uid://bwukm6f6shqym" path="res://assets/playersprite2.png" id="4_nbtpq"]
-[ext_resource type="Texture2D" uid="uid://cwiywegjabsbo" path="res://assets/playersprite3.png" id="5_b0m15"]
-[ext_resource type="Texture2D" uid="uid://bq04sdhqkmhs4" path="res://assets/playersprite4.png" id="6_qxeyi"]
+[ext_resource type="Texture2D" uid="uid://bunjpsmbx7c6f" path="res://assets/Player-spritesheet1.png" id="2_pv4ic"]
+[ext_resource type="Texture2D" uid="uid://3w87ajouwnku" path="res://assets/Player-spritesheet2.png" id="3_ctarp"]
+[ext_resource type="Texture2D" uid="uid://b2cnk7qut8lfg" path="res://assets/Player-spritesheet3.png" id="4_4uonh"]
+[ext_resource type="Texture2D" uid="uid://b1tm3xor4iurs" path="res://assets/Player-spritesheet4.png" id="5_en3g5"]
 [ext_resource type="Texture2D" uid="uid://5d2ywl4sfy1x" path="res://assets/player-sprite-up.png" id="6_yhppo"]
+[ext_resource type="PackedScene" uid="uid://c7tbojsghmmj2" path="res://weapon.tscn" id="7_l6fpy"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_muo1u"]
 radius = 2.0
 height = 12.0
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_d2nxv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_uu2ee"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_w730s")
-}, {
-"duration": 2.0,
-"texture": ExtResource("4_nbtpq")
+"texture": ExtResource("2_pv4ic")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_b0m15")
+"texture": ExtResource("2_pv4ic")
 }, {
-"duration": 2.0,
-"texture": ExtResource("6_qxeyi")
+"duration": 1.0,
+"texture": ExtResource("3_ctarp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4uonh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_pv4ic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_en3g5")
 }],
 "loop": true,
 "name": &"walk",
@@ -51,7 +58,14 @@ wait_time = 2.0
 one_shot = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_d2nxv")
+sprite_frames = SubResource("SpriteFrames_uu2ee")
 animation = &"walkup"
 
+[node name="Weapon" parent="." instance=ExtResource("7_l6fpy")]
+position = Vector2(3, 2)
+
+[node name="WeaponThrow" type="Timer" parent="."]
+wait_time = 0.001
+
 [connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="WeaponThrow" to="." method="_on_weapon_throw_timeout"]

@@ -6,6 +6,8 @@ extends CharacterBody2D
 @export var roll_speed = 3000
 @onready var _animated_sprite = $AnimatedSprite2D
 var canRoll = true
+signal throw
+var canShoot = true
 
 func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
@@ -36,7 +38,17 @@ func _physics_process(delta):
 	else:
 		velocity = velocity.lerp(Vector2.ZERO, friction)
 
+	if Input.is_action_just_pressed("throw_weapon_1") and canShoot:
+		var dir = get_global_mouse_position() - position
+		throw.emit(position, dir)
+		canShoot = false
+		$WeaponThrow.start()
+		
 	move_and_slide()
 
 func _on_dash_timer_timeout():
 	canRoll = true
+
+
+func _on_weapon_throw_timeout():
+	canShoot = true
